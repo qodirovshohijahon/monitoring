@@ -3,7 +3,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    restart: restart
+    restart: always
     networks:
       - epm-uzun
     volumes:
@@ -24,7 +24,7 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node_exporter
-    restart: restart
+    restart: always
     networks:
       - epm-uzun
     expose:
@@ -33,7 +33,7 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
     container_name: cadvisor
-    restart: restart
+    restart: always
     networks:
       - epm-uzun
     volumes:
@@ -47,7 +47,7 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    restart: restart
+    restart: always
     networks:
       - epm-uzun
     links:
@@ -69,6 +69,7 @@ services:
   loki:
     image: grafana/loki:latest
     container_name: promtail
+    restart: always
     ports:
       - 3100:3100
     command: -config.file=/etc/loki/local-config.yaml
@@ -83,6 +84,7 @@ services:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
     command: -config.file=/etc/promtail/docker-config.yaml
+    restart: always
     depends_on:
       - loki
     networks:
