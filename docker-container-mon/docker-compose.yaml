@@ -8,7 +8,7 @@ services:
       - epm-uzun
     volumes:
       - ./prometheus/:/etc/prometheus/
-      - ./prometheus/data:/prometheus
+      - prometheus-data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--log.level=error'
@@ -100,3 +100,4 @@ networks:
 
 volumes:
   grafana-storage:
+  prometheus-data:
