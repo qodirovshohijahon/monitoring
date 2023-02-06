@@ -55,6 +55,8 @@ services:
     restart: always
     networks:
       - epm-uzun
+    ports:
+      - 3000:3000      
     links:
       - prometheus:prometheus
     # user: "1001"
