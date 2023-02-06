@@ -62,7 +62,8 @@ services:
     # user: "1001"
     volumes:
       - grafana-storage:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning      
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=MYPASSWORT
       - GF_USERS_ALLOW_SIGN_UP=false
@@ -97,6 +98,31 @@ services:
     networks:
       - epm-uzun
 
+
+  alertmanager:
+    image: alertmanager-webhook-telegram
+    ports:
+    - 9119:9119/tcp
+    restart: always
+    environment:
+      TZ: Austria/Vienna
+      bottoken: xxx
+      chatid: 3xxxx
+      username: xxx
+      password: 123456
+
+
+    # image: prom/alertmanager
+    # restart: always
+    # ports:
+    #   - "9093:9093"
+    # volumes:
+    #   - "./alertmanager:/config"
+    #   - alertmanager-data:/data
+    # command: --config.file=/config/alertmanager.yml --log.level=debug
+
+
+  
 networks:
   epm-uzun:
     external: true
@@ -104,3 +130,4 @@ networks:
 volumes:
   grafana-storage:
   prometheus-data:
+  alertmanager-data:
