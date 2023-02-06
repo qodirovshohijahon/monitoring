@@ -97,6 +97,18 @@ services:
     networks:
       - epm-uzun
 
+  nginx-app:
+    container_name: nginx-app
+    image: nginx
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
+    ports:
+      - 8008:80
+    networks:
+      - app
+
+
 networks:
   epm-uzun:
 
