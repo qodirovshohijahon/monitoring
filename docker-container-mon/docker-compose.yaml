@@ -86,4 +86,7 @@ services:
       - telegram-bot-be_default
 
 
-# networks:
+networks:
+  network1:
+    name: telegram-bot-be_default
+    external: true
