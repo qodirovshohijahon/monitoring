@@ -2,7 +2,7 @@ version: '3.3'
 services:
   prometheus:
     image: prom/prometheus:latest
-    container_name: monitoring_prometheus
+    container_name: prometheus
     restart: unless-stopped
     networks:
       - epm-uzun
@@ -23,7 +23,7 @@ services:
 
   node-exporter:
     image: prom/node-exporter:latest
-    container_name: monitoring_node_exporter
+    container_name: node_exporter
     restart: unless-stopped
     networks:
       - epm-uzun
@@ -31,8 +31,8 @@ services:
       - 9100
 
   cadvisor:
-    image: google/cadvisor:latest
-    container_name: monitoring_cadvisor
+    image: gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
     restart: unless-stopped
     networks:
       - epm-uzun
@@ -46,7 +46,7 @@ services:
   
   grafana:
     image: grafana/grafana:latest
-    container_name: monitoring_grafana
+    container_name: grafana
     restart: unless-stopped
     networks:
       - epm-uzun
@@ -66,6 +66,7 @@ services:
 
   loki:
     image: grafana/loki:latest
+    container_name: promtail
     ports:
       - 3100:3100
     command: -config.file=/etc/loki/local-config.yaml
