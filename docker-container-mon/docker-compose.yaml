@@ -105,8 +105,9 @@ services:
       logging_jobname: "containerlogs"
     ports:
       - 8008:80
+    restart: always
     networks:
-      - app
+      - epm-uzun
 
 
 networks:
