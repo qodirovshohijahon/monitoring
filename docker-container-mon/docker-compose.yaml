@@ -68,7 +68,7 @@ services:
 
   loki:
     image: grafana/loki:latest
-    container_name: promtail
+    container_name: loki
     restart: always
     ports:
       - 3100:3100
