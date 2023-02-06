@@ -3,16 +3,16 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    restart: unless-stopped
+    restart: restart
     networks:
       - epm-uzun
     volumes:
       - ./prometheus/:/etc/prometheus/
       - ./prometheus/data:/prometheus
     command:
-      - '-config.file=/etc/prometheus/prometheus.yml'
-      - '-storage.local.path=/prometheus'
-      - '-alertmanager.url=http://alertmanager:9093'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.local.path=/prometheus'
+      - '--alertmanager.url=http://alertmanager:9093'
     expose:
       - 9090
     ports:
@@ -24,7 +24,7 @@ services:
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node_exporter
-    restart: unless-stopped
+    restart: restart
     networks:
       - epm-uzun
     expose:
@@ -33,7 +33,7 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
     container_name: cadvisor
-    restart: unless-stopped
+    restart: restart
     networks:
       - epm-uzun
     volumes:
@@ -47,11 +47,12 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    restart: unless-stopped
+    restart: restart
     networks:
       - epm-uzun
     links:
       - prometheus:prometheus
+    # user: "1001"
     volumes:
       - grafana-storage:/var/lib/grafana
       - ./grafana/provisioning:/etc/grafana/provisioning      
