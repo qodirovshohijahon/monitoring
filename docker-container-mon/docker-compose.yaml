@@ -83,7 +83,7 @@ services:
     depends_on:
       - loki
     networks:
-      - name: epm-uzun
+      - epm-uzun
 
 networks:
-  name: epm-uzun
+  epm-uzun:
