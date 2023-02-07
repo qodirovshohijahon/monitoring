@@ -17,7 +17,7 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
       - '--web.external-url=http://localhost:9090'
-      # - '--alertmanager.url=http://alertmanager:9093'
+      - '--alertmanager.url=http://alertmanager:9119'
     expose:
       - 9090
     ports:
@@ -100,16 +100,19 @@ services:
 
 
   alertmanager:
+    container_name: alertmanager  
     image: alertmanager-webhook-telegram
     ports:
     - 9119:9119/tcp
     restart: always
     environment:
-      TZ: Austria/Vienna
-      bottoken: xxx
-      chatid: 3xxxx
-      username: xxx
-      password: 123456
+      TZ: 
+      bottoken: ${BOT_TOKEN}
+      chatid: ${CHAT_ID}
+      username: ${USERNAME}
+      password: ${PASSWORD}
+    networks:
+      - epm-uzun
 
 
     # image: prom/alertmanager
